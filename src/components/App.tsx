@@ -4,14 +4,16 @@ import ContactForm from "./ContactForm/ContactForm";
 import ContactsList from "./ContactList/ContactList";
 import Filter from "./Filter/Filter";
 import AppStl from "./App.module.css";
-interface Icontact {
+
+type TObj = { [name: string]: string };
+interface IContact {
   id: string;
   name: string;
   number: string;
 }
 
 interface ISate {
-  contacts: Icontact[];
+  contacts: IContact[];
   filter: string;
 }
 
@@ -26,9 +28,9 @@ export default class App extends Component<{}, ISate> {
     filter: "",
   };
 
-  onInputValue = (e: React.SyntheticEvent) => {
-    const { name, value } = e.target;
-    this.setState({ [name]: value });
+  onInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    this.setState({ filter: value });
   };
 
   addContact = (name: string, number: string) => {

@@ -3,26 +3,25 @@ import React, { Component } from "react";
 import ContactFormStl from "./ContactForm.module.css";
 
 interface IProps {
-  onAddContact;
+  onAddContact(name: string, number: string): void;
 }
 
 interface IState {
-  name: string;
-  number: string;
+  [key: string]: string;
 }
 
-export default class ContactForm extends Component<{}, IState> {
+export default class ContactForm extends Component<IProps, IState> {
   state = {
     name: "",
     number: "",
   };
 
-  onInputValue = e => {
+  onInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     this.setState({ [name]: value });
   };
 
-  onSubmitContact = e => {
+  onSubmitContact = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const { name, number } = this.state;
 
@@ -33,13 +32,13 @@ export default class ContactForm extends Component<{}, IState> {
   render() {
     const { name, number } = this.state;
     return (
-      <form onSubmit={this.onSubmitContact} className={ContactFormStl.ContactForm} id={nanoid()}>
+      <form onSubmit={e => this.onSubmitContact(e)} className={ContactFormStl.ContactForm} id={nanoid()}>
         <label className={ContactFormStl.label}>
           Name
           <input
             type='text'
             value={name}
-            onChange={this.onInputValue}
+            onChange={e => this.onInputValue(e)}
             name='name'
             id={nanoid()}
             className={ContactFormStl.input}
