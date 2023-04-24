@@ -5,8 +5,7 @@ import ContactsList from "./ContactList/ContactList";
 import Filter from "./Filter/Filter";
 import AppStl from "./App.module.css";
 
-type TObj = { [name: string]: string };
-interface IContact {
+export interface IContact {
   id: string;
   name: string;
   number: string;

@@ -1,6 +1,10 @@
 import FilterStl from "./Filter.module.css";
+interface Props {
+  filter: string;
+  onChangeFilter(e: React.ChangeEvent<HTMLInputElement>): void;
+}
 
-export default function Filter({ filter, onChangeFilter }) {
+export default function Filter({ filter, onChangeFilter }: Props) {
   return (
     <div className={FilterStl.filterContainer}>
       <label className={FilterStl.label}>
