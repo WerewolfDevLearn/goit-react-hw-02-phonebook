@@ -11,6 +11,10 @@ export interface IContact {
   number: string;
 }
 
+export interface IValues {
+  person: string;
+  number: string;
+}
 interface ISate {
   contacts: IContact[];
   filter: string;
@@ -32,14 +36,14 @@ export default class App extends Component<{}, ISate> {
     this.setState({ filter: value });
   };
 
-  addContact = (name: string, number: string) => {
-    if (this.state.contacts.some(contact => contact.name === name)) {
+  addContact = ({ person, number }: IValues) => {
+    if (this.state.contacts.some(contact => contact.name.toLocaleLowerCase() === person.toLocaleLowerCase())) {
       alert(`${name} is already in Contacts`);
       return;
     }
     const contact = {
       id: nanoid(),
-      name,
+      name: person,
       number,
     };
     this.setState(prevState => {

@@ -5,12 +5,9 @@ import * as yup from "yup";
 import ContactFormStl from "./ContactForm.module.css";
 
 // types
+import { IValues } from "../App";
 interface IProps {
-  onAddContact(name: string, number: string): void;
-}
-interface Values {
-  person: string;
-  number: string;
+  onAddContact(values: IValues): void;
 }
 // variables
 const initialValues = { person: "", number: "" };
@@ -22,10 +19,8 @@ const schema = yup.object().shape({
 });
 
 export default function ContactForm({ onAddContact }: IProps) {
-  const onSubmitFormik = (values: Values, { resetForm }: FormikHelpers<Values>) => {
-    console.log("values: ", values);
-    const { person, number } = values;
-    onAddContact(person, number);
+  const onSubmitFormik = (values: IValues, { resetForm }: FormikHelpers<IValues>) => {
+    onAddContact(values);
     resetForm();
   };
 
